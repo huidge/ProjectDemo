@@ -1,9 +1,11 @@
+
 <?php
-   // require_once "WxPay.JsApiPay.php";
-   // $tools = new JsApiPay();
-   // $openId = $tools->GetOpenid();//获取openid
-   // //echo $openId;
+    //require_once "WxPay.JsApiPay.php";
+    //$tools = new JsApiPay();
+    //$openId = $tools->GetOpenid();//获取openid
+    //echo $openId;
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -197,7 +199,7 @@ $(document).ready(function(){
 				<div class="weui-cell__hd">
 					<label for="" class="weui-label">首次缴费日期</label></div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="date" value="" id="firstDate" />
+					<input class="weui-input" type="date" value="2017-08-17" id="firstDate" />
 				</div>
 			</div>
 				<div class="weui-cell weui-cell_select weui-cell_select-before">
@@ -235,7 +237,7 @@ $(document).ready(function(){
 			<div class="weui-cell">
 				<div class="weui-cell__hd"><label class="weui-label">账户价值/元</label></div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="number" value="" pattern="^[0-9]+(.[0-9]{2})?$" placeholder="请输入账户当前价值" id="accountvalue" />
+					<input class="weui-input" type="number" value="29000" pattern="^[0-9]+(.[0-9]{2})?$" placeholder="请输入账户当前价值" id="accountvalue" />
 				</div>
 			</div>
 			</div>
@@ -257,13 +259,13 @@ $(document).ready(function(){
             </select>
         </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="tel" id="phoneNumber" name="phoneNumber" placeholder="请输入手机号"> 
+            <input class="weui-input" type="tel" id="phoneNumber" name="phoneNumber" value="18437952970"placeholder="请输入手机号"> 
         </div>
     	</div>
 		</div>
 			<div class="weui-cell">
 			<div class="weui-cell__bd">
-            <input class="weui-input" type="number" placeholder="请输入验证码" id="captcha">
+            <input class="weui-input" type="number" placeholder="请输入验证码" id="captcha" value="27637">
         </div>
 			<div class="weui-cell__ft">
             <input type="button" class="weui-btn weui-btn_primary" value="免费获取验证码" id="btn"  onclick="settime(this)" /> 

@@ -98,7 +98,8 @@
 	/*初始的现金价值/本金*/
 	$cashValue_principal[$i] = $cashValue[$i]/$principal[$i];
 	/*初始的退保价值/本金*/
-	$default_surrenderValue_principal[$i] = ($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i];
+	$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
+
 	/*初始化结束*/
 
 	/*开始第一期缴费*/
@@ -112,12 +113,13 @@
 	$surrenderCost[$i] = $iCP[$i]* $surrenderrate[$i];
 	$surrenderValue[$i] = $cashValue[$i] - $surrenderCost[$i];
 	$cashValue_principal[$i] = ($iCP[$i] + $A_C[$i]) / $principal[$i];
-	$default_surrenderValue_principal[$i] = ($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i];
+	$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
+
 	/*第一期缴费结束*/
 
 
 	/*循环开始下一期缴费*/
-	for($i = 2; $i <= 350; $i++) {
+	for($i = 2; $i <= 150; $i++) {
 		$A_C[$i] = $A_C[$i-1] * $rate * (1 - $policyFee3) - $principal[$i-1] * $policyFee1 + $money;
 		if($principal[$i-1] < $money*$plan_periods)
 		{
@@ -131,10 +133,10 @@
 
 		$cashValue[$i] = $iCP[$i]+ $A_C[$i];
 		$surrenderCost[$i] = $iCP[$i] * $surrenderrate[$i];
-		$surrenderValue[$i] = $cashValue[$i] - $surrenderCost[$i];
+		$surrenderValue[$i] = round(($cashValue[$i] - $surrenderCost[$i]),2);
 		$cashValue_principal[$i] = ($iCP[$i] + $A_C[$i]) / $principal[$i];
-		$default_surrenderValue_principal[$i] = ($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i];
-		
+		$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
+
 	}
 	//echo "default_surrenderValue_principal:";
 	//echo  "<br>";
@@ -149,12 +151,6 @@
 //初始图展示
 	//echo("<title>模型计算结果的图表展示</title>");
 	//为ECharts准备一个具备大小（宽高）的Dom 
-	
-	
-	
-	
-	
-	
 
 	//创建施行方案后的退保价值/本金数组
 	$surrenderValue_principal_first = array();
@@ -165,7 +161,11 @@
 	$surrenderValue_principal_sixth = array();
 	$percent=$percent*100;
 	//减资方案
-	echo("</br><h1>建议方案1:减资</h1></br>");
+echo("<body style='background-color:#3e3e3e;'>");
+echo("<div style='background-color:#3e3e3e;width:100%;'>");
+echo("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议方案1:减资</h1></br>");
+echo("<p style='color:white'></p><br />");
+
 	echo("<div id='first'  style='width: 100%;height:70%;'></div>");
 	if(1)
 	{
@@ -174,7 +174,7 @@
 		$flag = 0;
 		//echo("减少每期缴费额，额度为每期缴费额的50%，即"+$money);
 		$surrenderValue_principal_first[$periods] = $default_surrenderValue_principal[$periods];
-		for($i = $periods+1; $i <= 350; $i++) 
+		for($i = $periods+1; $i <= 150; $i++) 
 		{
 			$A_C[$i] = $A_C[$i-1] * $rate * (1 - $policyFee3) - $principal[$i-1] * $policyFee1 + $money;
 			if($principal[$i-1] < $money*$plan_periods)
@@ -186,20 +186,26 @@
 				$principal[$i] = $principal[$i-1];
 			}
 			$iCP[$i] = $iCP[$i-1] * $rate * (1 - $accountvalueFee - $policyFee3) + $policyFee2;
-			$surrenderValue_principal_first[$i] = ($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i];
+			$surrenderValue_principal_first[$i] = round((($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i]),2);
 			if($flag==0 && $surrenderValue_principal_first[$i] >= $default_surrenderValue_principal[$i] )
 			{
-				echo("如果您减少投资现金，增加现金流；
-				假设您减少投资金额50%，按照一个合理的规划回报率$percent%,
-				您的账户将在第$i 期超过未减额时按原本回报率的账户状态。");
-				echo "<br/>";
+				echo("<div style='background-color:#3e3e3e;width:100%;'>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您减少投资现金，增加现金流；假</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp设您减少投资金额50%，按照一个合理</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp的规划回报率$percent%,您的账户将在第$i 期</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp超过未减额时按原本回报率的账户状态。</p>");
+				echo("</div><br/>");
+				echo("</div>");
 				$flag=1;
 			}
 		}
 
 	}
 	//继续持有方案
-	echo("</br><h1>建议方案2:持有</h1></br>");
+echo("<div style='background-color:#3e3e3e;'>");
+echo("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议方案2:持有</h1></br>");
+echo("<p style='color:white'></p><br />");
+
 	echo("<div id='second'  style='width: 100%;height:70%;'></div>");
 	if(1)
 	{
@@ -207,7 +213,7 @@
 		//echo("保持每期缴费额不变，即"+$money);
 		$flag = 0;
 		$surrenderValue_principal_second[$periods] = $default_surrenderValue_principal[$periods];
-		for($i = $periods+1; $i <= 350; $i++) 
+		for($i = $periods+1; $i <= 150; $i++) 
 		{
 			$A_C[$i] = $A_C[$i-1] * $rate * (1 - $policyFee3) - $principal[$i-1] * $policyFee1 + $money;
 			if($principal[$i-1] < $money*$plan_periods)
@@ -219,18 +225,25 @@
 				$principal[$i] = $principal[$i-1];
 			}
 			$iCP[$i] = $iCP[$i-1] * $rate * (1 - $accountvalueFee - $policyFee3) + $policyFee2;
-			$surrenderValue_principal_second[$i] = ($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i];
+			$surrenderValue_principal_second[$i] = round((($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i]),2);
 			if($flag == 0 && $surrenderValue_principal_second[$i]>=1.2)
 			{
-				echo("如果您继续持有账户，按照一个合理的规划回报率$percent%，您的账户将在第$i 期盈余超过20%。");
-				echo "<br/>";
+				echo("<div style='background-color:#3e3e3e;width:100%;'>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您继续持有账户，按照一个合理的规</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp划回报率$percent%，您的账户将在第$i 期盈余</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp超过20%。</p>");
+				echo("</div><br/>");
+				echo("</div>");
 				$flag=1;
 			}
 		}
 		
 	}
 	//增资方案
-	echo("</br><h1>建议方案3:增资</h1></br>");
+echo("<div style='background-color:#3e3e3e;'>");
+echo("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议方案3:增资</h1></br>");
+echo("<p style='color:white'></p><br />");
+
 	echo("<div id='third'  style='width: 100%;height:70%;'></div>");
 	if(1)
 	{
@@ -239,7 +252,7 @@
 		//echo("增加每期缴费额，额度为每期缴费额的200%，即"+$money);
 		$flag = 0; 
 		$surrenderValue_principal_third[$periods] = $default_surrenderValue_principal[$periods];
-		for($i = $periods+1; $i <= 350; $i++) 
+		for($i = $periods+1; $i <= 150; $i++) 
 		{
 			$A_C[$i] = $A_C[$i-1] * $rate * (1 - $policyFee3) - $principal[$i-1] * $policyFee1 + $money;
 			if($principal[$i-1] < $money*$plan_periods)
@@ -251,18 +264,27 @@
 				$principal[$i] = $principal[$i-1];
 			}
 			$iCP[$i] = $iCP[$i-1] * $rate * (1 - $accountvalueFee - $policyFee3) + $policyFee2;
-			$surrenderValue_principal_third[$i] = ($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i];
+			$surrenderValue_principal_third[$i] = round((($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i]),2);
 			if($flag == 0 && $surrenderValue_principal_third[$i] >= 1)
 			{
-				echo("如果您有继续持有的意愿并且有能力继续投入，
-				您可以增加投资金额以达到尽快回本的目的。假设您增加金额双倍，按照一个合理的规划回报率$percent%，您的账户将在第$i 期回本。");
-				echo "<br/>";
+				echo("<div style='background-color:#3e3e3e;width:100%;'>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您有继续持有的意愿并且有能力继</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp续投入，
+				您可以增加投资金额以达到尽</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp快回本的目的。假设您增加金额双倍，</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp按照一个合理的规划回报率$percent%，您的账</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp户将在第$i 期回本。</p>");
+				echo("</div><br/>");
+				echo("</div>");
 				$flag = 1;
 			}
 		}
 	}
 	//退保方案
-	echo("</br><h1>建议方案4:退保</h1></br>");
+echo("<div style='background-color:#3e3e3e;'>");
+echo("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议方案4:退保</h1></br>");
+echo("<p style='color:white'></p><br />");
+
 	echo("<div id='forth'  style='width: 100%;height:70%;'></div>");
 	if(1)
 	{
@@ -271,46 +293,62 @@
 		//echo("退保成本"+$surrenderCost[$periods]+"元</br>");
 		//echo("拿到退保价值"+$surrenderValue[$periods]+"元</br>");
 		$loss=(1-$default_surrenderValue_principal[$periods])*100;
-		echo("假设您没有继续持有的意愿或者有现金流的需求，其中一个方案建议您选择退保。假设您现在退保，您可取回$surrenderValue[$periods]元");
-		echo "<br/>";
-
+		echo("<div style='background-color:#3e3e3e;width:100%;'>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您没有继续持有的意愿或者有现金</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp流的需求，其中一个方案建议您选择退</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp保。假设您现在退保，您可取回$surrenderValue[$periods]</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp元</p>");
+		echo("</div><br/>");
+		echo("</div>");
 		$surrenderValue_principal_forth[$periods] = $default_surrenderValue_principal[$periods];
-		for($i = $periods+1; $i <= 350; $i++) 
+		for($i = $periods+1; $i <= 150; $i++) 
 		{
-			$surrenderValue[$i]=$surrenderValue[$i-1]*(1+0.04/12);
-			$surrenderValue_principal_forth[$i] =  $surrenderValue[$i] / $principal[$periods];		
+			$surrenderValue[$i]=round($surrenderValue[$i-1]*(1+0.04/12),2);
+			$surrenderValue_principal_forth[$i] = round(($surrenderValue[$i] / $principal[$periods]),2);		
 
 		}
 
 	}
 	//转让方案
-	echo("</br><h1>建议方案5:转让</h1></br>");
+echo("<div style='background-color:#3e3e3e;'>");
+echo("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议方案5:转让</h1></br>");
+echo("<p style='color:white'></p><br />");
+
 	echo("<div id='fifth'  style='width: 100%;height:70%;'></div>");
 	if(1)
 	{
 		//echo("以退保价值的120%转让给财联邦</br>");
 		//echo("退保价值"+$surrenderValue[$periods]+"元</br>");
 		$loss = (1-$default_surrenderValue_principal[$periods])*100;
-		$value = $surrenderValue[$periods]*1.2;
-		echo("假设您没有意愿再持有账户，其中一个方案建议您转让保单。假设您按正常流程停止保单，您的剩余价值是$surrenderValue[$periods]元，但按照转让价格，您可取回$value 元。");
-		echo "<br/>";
+		$value = round($surrenderValue[$periods]*1.2,2);
+		echo("<div style='background-color:#3e3e3e;width:100%;'>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您没有意愿再持有账户，其中一个方</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案建议您转让保单。假设您按正常流程停</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp止保单，您的剩余价值是$surrenderValue[$periods]元，但</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp按照转让价格，您可取回$value 元。</p>");
+		echo("</div><br/>");
+		echo("</div>");
+
 		$surrenderValue[$periods]=$surrenderValue[$periods]*1.2;
 		$surrenderValue_principal_fifth[$periods] = $default_surrenderValue_principal[$periods];
-		for($i = $periods+1; $i <= 350; $i++) 
+		for($i = $periods+1; $i <= 150; $i++) 
 		{
 			$surrenderValue[$i]=$surrenderValue[$i-1]*(1+0.04/12);
-			$surrenderValue_principal_fifth[$i] =  $surrenderValue[$i] / $principal[$periods];
+			$surrenderValue_principal_fifth[$i] =  round(($surrenderValue[$i] / $principal[$periods]),2);
 		}
 	}
 	//提取方案
-	echo("</br><h1>建议方案6:提取</h1></br>");
+echo("<div style='background-color:#3e3e3e;'>");
+echo("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议方案6:提取</h1></br>");
+echo("<p style='color:white'></p><br />");
+
 	echo("<div id='sixth'  style='width: 100%;height:70%;'></div>");
 	if(1)
 	{
 		//echo("每期从A/C账户提取30%");
 		$flag = 0; 
 		$surrenderValue_principal_sixth[$periods] = $default_surrenderValue_principal[$periods];
-		for($i = $periods+1; $i <= 350; $i++) 
+		for($i = $periods+1; $i <= 150; $i++) 
 		{
 			$A_C[$i] = $A_C[$i-1] * $rate * (1 - $policyFee3) - $principal[$i-1] * $policyFee1 + $money-$A_C[$i-1]*0.3;
 			if($principal[$i-1] < $money*$plan_periods)
@@ -322,14 +360,21 @@
 				$principal[$i] = $principal[$i-1];
 			}
 			$iCP[$i] = $iCP[$i-1] * $rate * (1 - $accountvalueFee - $policyFee3) + $policyFee2;
-			$surrenderValue_principal_sixth[$i] = ($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i];
+			$surrenderValue_principal_sixth[$i] = round((($iCP[$i]+ $A_C[$i] - $iCP[$i]* $surrenderrate[$i]) / $principal[$i]),2);
 			
 			//什么时候回本？待定
 			if($flag==0 && $surrenderValue_principal_sixth[$i-1] >= 1)
 			{
-				echo("假设您短期内有资金需求，其中一个方案建议您提取金额。假设您每期从A/C账户提取30%的额度，按照一个合理的规划回报率$percent%，您的账户剩余价值将在第$i 期回本。");
-				echo "<br/>";
+				echo("<div style='background-color:#3e3e3e;width:100%;'>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您短期内有资金需求，其中一个方</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案建议您提取金额。假设您每期从A/C账</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp户提取30%的额度，按照一个合理的规划</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp回报率$percent%，您的账户剩余价值将在第$i</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp期回本。</p>");
+				echo("</div><br/>");
+				echo("</div>");
 				$flag=1;
 			}
 		}
 	}
+	echo("</body>");
