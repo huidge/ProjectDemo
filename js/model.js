@@ -102,7 +102,7 @@
 	cashValue_Principal[i] = cashValue[i]/principal[i];
 	/*初始的退保价值/本金*/
 	var default_surrenderValue_Principal = new Array();
-	default_surrenderValue_Principal[i] = (ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i];
+	default_surrenderValue_Principal[i] = ((ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i]).toFixed(2);
 	/*初始化结束*/
 
 	/*开始第一期缴费*/
@@ -116,7 +116,7 @@
 	surrenderCost[i] = ICP[i]* surrenderRate[i];
 	surrenderValue[i] = cashValue[i] - surrenderCost[i];
 	cashValue_Principal[i] = (ICP[i] + A_C[i]) / principal[i];
-	default_surrenderValue_Principal[i] = (ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i];
+	default_surrenderValue_Principal[i] = ((ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i]).toFixed(2);
 	/*第一期缴费结束*/
 
 
@@ -137,25 +137,35 @@
 		surrenderCost[i] = ICP[i] * surrenderRate[i];
 		surrenderValue[i] = cashValue[i] - surrenderCost[i];
 		cashValue_Principal[i] = (ICP[i] + A_C[i]) / principal[i];
-		default_surrenderValue_Principal[i] = (ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i];
+		default_surrenderValue_Principal[i] = ((ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i]).toFixed(2);
 		
 	}
-document.write("<p>根据您的账户数据，分析结果如下：</p><br>");
-document.write("<p>已供款"+periods+"期</p><br>");
-document.write("<p>总供款金额"+money*periods+"元</p><br>");
-document.write("<p>目前账户价值"+accountvalue+"元</p><br>");
-document.write("<p>账户回报率约为"+((accountvalue-money*periods)*100/(money*periods)).toFixed(2)+"%</p><br>");
-document.write("<p>测试1：假设退保可取回价值"+(accountvalue*(1-surrenderRate[periods])).toFixed(2)+"元</p><br>");
-document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods].toFixed(2)+"元</p><br>");
+document.write("<div style='background-color:#3e3e3e;width:100%;'>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp根据您的账户数据，分析结果如下：</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp已供款<strong style='color:#dfc781'>"+periods+"</strong>期</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp总供款金额<strong style='color:#dfc781'>"+money*periods+"</strong>元</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp目前账户价值<strong style='color:#dfc781'>"+accountvalue+"</strong>元</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp账户回报率约为<strong style='color:#dfc781'>"+((accountvalue-money*periods)*100/(money*periods)).toFixed(2)+"%</strong></p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp测试1：假设退保可取回价值</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong style='color:#dfc781'>"+(accountvalue*(1-surrenderRate[periods])).toFixed(2)+"</strong>元</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp测试2：假设退保可取回价值</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong style='color:#dfc781'>"+surrenderValue[periods].toFixed(2)+"</strong>元</p>");
+document.write("<br><br></div>");
 //初始图展示
-	document.write("<link href='https://cdn.bootcss.com/weui/1.1.2/style/weui.css' rel='stylesheet'>");
-	document.write("<title>结果展示</title>");
+	document.write("<link rel='stylesheet' type='text/css' href='./css/weui.min.css'> ");
+	document.write("<title>财联邦</title>");
 	//<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 	//支付宝、P2P、专业资管团队收益曲线对比图
-	document.write("<div id='main0'  style='left:20px;width: 100%;height:70%;'></div>");
-	document.write("根据上图对比，可以看出：余额宝收益较低，P2P风险较高，综合对比而言，专业资管团队是您投资稳健增长的最佳选择！");
-	
-	document.write("<div id='main'  style='width: 100%;height:70%;'></div>");
+
+	document.write("<div id='main0'  style='background:url(img/2.jpg);width:100%;height:70%;'></div>");
+	document.write("<div style='background-color:#3e3e3e'>");
+	document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp根据上图对比，可以看出：</p>");
+	document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp余额宝收益较低，P2P风险较高,</p>");
+	document.write("<strong style='color:#dfc781'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp综合对比而言，</strong><br />");
+	document.write("<strong style='color:#dfc781'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp专业资管团队是您投资稳健增长的</strong><br/>");
+	document.write("<strong style='color:#dfc781'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp最佳选择！</strong><br /><br />");
+	document.write("</div>");
+	document.write("<div id='main'  style='background:url(img/4.jpg);width: 100%;height:70%;'></div>");
 	//document.write("现金价值/本金:"+cashValue_Principal[periods]+"</br>");
 	//document.write("退保费率："+surrenderRate[periods]*100+"%</br>");
 	/*创建施行方案后的退保价值/本金数组*/
@@ -163,8 +173,12 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 	//减资方案
 	if(cashValue_Principal[periods]>=1.06 && surrenderRate[periods]>0.5)
 	{
-		document.write("建议方案1:减资</br>");
-		document.write("您现在的账户正处于不错的盈余状态，其中一个方案建议您可减少投资现金，增加现金流。");
+		document.write("<div style='background-color:#3e3e3e;'>");
+		document.write("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp建议方案1:减资</h3></br>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您现在的账户正处于不错的盈余状态，</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp其中一个方案建议您可减少投资现金，</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp增加现金流。</p><br />");
+		
 		money=money*0.5;
 		var flag = 0;
 		//document.write("减少每期缴费额，额度为每期缴费额的50%，即"+money);
@@ -181,12 +195,18 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 				principal[i] = principal[i-1];
 			}
 			ICP[i] = ICP[i-1] * rate * (1 - accountvalueFee - policyFee3) + policyFee2;
-			surrenderValue_Principal[i] = (ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i];
+			surrenderValue_Principal[i] = ((ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i]).toFixed(2);
 			
 			if(flag==0 && surrenderValue_Principal[i] >= default_surrenderValue_Principal[i] )
 			{
-				document.write("假设您减少投资金额50%，按照一个合理的规划回报率"+percent
-			+"%,您的账户将在第"+i+"期超过未减额时按原本回报率的账户状态。");
+				document.write("<div style='background-color:#3e3e3e;width:100%;'>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您减少投资金额50%，按照一个</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp合理的规划回报率"+percent
+			+"%,您的账户将在</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp第"+i+"期超过未减额时按原本回报率的</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp账户状态。</p>");
+				document.write("</div>");
+				document.write("</div>");
 				flag=1;
 			}
 		}
@@ -195,8 +215,11 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 	//继续持有方案
 	else if(cashValue_Principal[periods]>=0.95 && cashValue_Principal[periods]<1.06 && surrenderRate[periods]>0.5)
 	{
-		document.write("建议方案2:持有</br>");
-		document.write("您现在的账户处于可控状态，其中一个方案建议您继续持有账户。");
+		document.write("<div style='background-color:#3e3e3e;'>");
+		document.write("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp建议方案2:持有</h3></br>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您现在的账户处于可控状态，其中一个</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp方案建议您继续持有账户。</p><br />");
+		
 		//document.write("保持每期缴费额不变，即"+money);
 		var flag = 0;
 		surrenderValue_Principal[periods] = default_surrenderValue_Principal[periods];
@@ -212,11 +235,15 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 				principal[i] = principal[i-1];
 			}
 			ICP[i] = ICP[i-1] * rate * (1 - accountvalueFee - policyFee3) + policyFee2;
-			surrenderValue_Principal[i] = (ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i];
+			surrenderValue_Principal[i] = ((ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i]).toFixed(2);
 			
 			if(flag == 0 && surrenderValue_Principal[i]>=1.2)
 			{
-				document.write("按照一个合理的规划回报率"+percent+"%，您的账户将在第"+i+"期盈余超过20%。");
+				document.write("<div style='background-color:#3e3e3e;width:100%;'>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp按照一个合理的规划回报率"+percent+"%，您的</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp账户将在第"+i+"期盈余超过20%。</p>");
+				document.write("</div>");
+				document.write("</div>");
 				flag=1;
 			}
 		}
@@ -225,8 +252,13 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 	//增资方案
 	else if(cashValue_Principal[periods]>=0.9 && cashValue_Principal[periods]<0.95)
 	{
-		document.write("建议方案3:增资</br>");
-		document.write("您现在的账户处于亏损较可控状态，假设您有继续持有的意愿并且有能力继续投入，其中一个方案建议您增加投资金额以达到尽快回本的目的。");
+		document.write("<div style='background-color:#3e3e3e;'>");
+		document.write("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp建议方案3:增资</h3></br>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您现在的账户处于亏损较可控状态，</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您有继续持有的意愿并且有能力</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp继续投入，其中一个方案建议您增加</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp投资金额以达到尽快回本的目的。</p><br />");
+		
 		money=money*2;
 		//document.write("增加每期缴费额，额度为每期缴费额的200%，即"+money);
 		var flag = 0; 
@@ -243,11 +275,16 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 				principal[i] = principal[i-1];
 			}
 			ICP[i] = ICP[i-1] * rate * (1 - accountvalueFee - policyFee3) + policyFee2;
-			surrenderValue_Principal[i] = (ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i];
+			surrenderValue_Principal[i] = ((ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i]).toFixed(2);
 			
 			if(flag == 0 && surrenderValue_Principal[i] >= 1)
 			{
-				document.write("假设您增加金额双倍，按照一个合理的规划回报率"+percent+"%，您的账户将在第"+i+"期回本。");
+				document.write("<div style='background-color:#3e3e3e;width:100%;'>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您增加金额双倍，按照一个合理</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp的规划回报率"+percent+"%，您的账户将在第</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+i+"期回本。</p>");
+				document.write("</div>");
+				document.write("</div>");
 				flag = 1;
 			}
 		}
@@ -255,17 +292,23 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 	//退保方案
 	else if(cashValue_Principal[periods]>=0.8 && cashValue_Principal[periods]<0.9)
 	{
-		document.write("建议方案4:退保</br>");
+		document.write("<div style='background-color:#3e3e3e;'>");
+		document.write("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp建议方案4:退保</h3></br>");
 		//document.write("本金"+principal[periods]+"元</br>");
 		//document.write("退保成本"+surrenderCost[periods]+"元</br>");
 		//document.write("拿到退保价值"+surrenderValue[periods]+"元</br>");
-		document.write("您现在的账户处于亏损"+((1-default_surrenderValue_Principal[periods]*100)).toFixed(2)+"%，假设您没有继续持有的意愿或者有现金流的需求，"
-		+"其中一个方案建议您选择退保。假设您现在退保，您可取回"+(surrenderValue[periods]).toFixed(2)+"元");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您现在的账户处于亏损"+((1-default_surrenderValue_Principal[periods]*100)).toFixed(2)+"%，假设</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您没有继续持有的意愿或者有现金流的</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp需求，"
+		+"其中一个方案建议您选择退保。</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您现在退保，您可取回"+(surrenderValue[periods]).toFixed(2)+"</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp元。</p><br />");
+		document.write("</div>");
 		surrenderValue_Principal[periods] = default_surrenderValue_Principal[periods];
 		for(i = periods+1; i <= 350; i++) 
 		{
 			surrenderValue[i]=surrenderValue[i-1]*(1+0.04/12);
-			surrenderValue_Principal[i] =  surrenderValue[i] / principal[periods];		
+			surrenderValue_Principal[i] =  (surrenderValue[i] / principal[periods]).toFixed(2);		
 
 		}
 
@@ -273,25 +316,34 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 	//转让方案
 	else if(cashValue_Principal[periods]<=0.8)
 	{
-		document.write("建议方案5:转让</br>");
+		document.write("<div style='background-color:#3e3e3e;'>");
+		document.write("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp建议方案5:转让</h3></br>");
 		//document.write("以退保价值的120%转让给财联邦</br>");
 		//document.write("退保价值"+surrenderValue[periods]+"元</br>");
-		document.write("您现在的账户处于亏损"+((1-default_surrenderValue_Principal[periods])*100).toFixed(2)+"%，假设您没有意愿再持有账户，其中一个方案建议您转让保单。"
-			+"假设您按正常流程停止保单，您的剩余价值是"+(surrenderValue[periods]).toFixed(2)+"元，但按照转让价格，您可取回"+surrenderValue[periods]*1.2+"元。");
+
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您现在的账户处于亏损"+((1-default_surrenderValue_Principal[periods])*100).toFixed(2)+"%，假设</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您没有意愿再持有账户，其中一个方案</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp建议您转让保单。假设您按正常流程停</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp止保单，您的剩余价值是"+(surrenderValue[periods]).toFixed(2)+"</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp元。</p><br />");
+		document.write("</div>");
 		surrenderValue[periods]=surrenderValue[periods]*1.2;
 		surrenderValue_Principal[periods] = default_surrenderValue_Principal[periods];
 		for(i = periods+1; i <= 350; i++) 
 		{
 			surrenderValue[i]=surrenderValue[i-1]*(1+0.04/12);
-			surrenderValue_Principal[i] =  surrenderValue[i] / principal[periods];
+			surrenderValue_Principal[i] =  (surrenderValue[i] / principal[periods]).toFixed(2);
 		}
 	}
 	//提取方案
 	else if(cashValue_Principal[periods]>=1 && surrenderRate[periods]<=0.5)
 	{
-		document.write("建议方案6:提取</br>");
+		document.write("<div style='background-color:#3e3e3e;'>");
+		document.write("<h3 style='color:white'>&nbsp&nbsp&nbsp&nbsp建议方案6:提取</h3></br>");
 		//document.write("每期从A/C账户提取30%");
-		document.write("您现在的账户处于较佳状态，假设您短期内有资金需求，其中一个方案建议您提取金额。");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您现在的账户处于较佳状态，假设您</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp短期内有资金需求，其中一个方案建</p>");
+		document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp议您提取金额。</p><br />");
 		surrenderValue_Principal[periods] = default_surrenderValue_Principal[periods];
 		var flag = 0; 
 		for(i = periods+1; i <= 350; i++) 
@@ -306,12 +358,17 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 				principal[i] = principal[i-1];
 			}
 			ICP[i] = ICP[i-1] * rate * (1 - accountvalueFee - policyFee3) + policyFee2;
-			surrenderValue_Principal[i] = (ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i];
+			surrenderValue_Principal[i] = ((ICP[i]+ A_C[i] - ICP[i]* surrenderRate[i]) / principal[i]).toFixed(2);
 			
 			/*什么时候回本？待定*/
 			if(flag == 0 && surrenderValue_Principal[i-1] >= 1)
 			{
-				document.write("假设您每期从A/C账户提取30%的额度，按照一个合理的规划回报率"+percent+"%，您的账户剩余价值将在第"+i+"期回本。");
+				document.write("<div style='background-color:#3e3e3e;width:100%;'>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您每期从A/C账户提取30%的额</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp度，按照一个合理的规划回报率"+percent+"%，</p>");
+				document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp您的账户剩余价值将在第"+i+"期回本。</p>");
+				document.write("</div>");
+				document.write("</div>");
 				flag = 1;
 			}
 		}
@@ -344,6 +401,15 @@ document.write("<p>测试2：假设退保可取回价值"+surrenderValue[periods
 	a_value[1] = periods*money;
 	value[1] = periods*money;
 	p_value[1] = periods*money;
+	if(periods*money > accountvalue)
+	{
+		var minValue=accountvalue-money;
+	}
+	else
+	{
+		var minValue=periods*money-money;
+	}
+
 	var categories0 = new Array();
 	categories0[0] = "第0期";
 	categories0[1] = "第1期";
@@ -376,6 +442,9 @@ for(var t=2;t<periods+7;t++)
 	var myChart0= echarts.init(document.getElementById('main0'),'shine');
 	var myChart = echarts.init(document.getElementById('main'),'shine');
 	var option0 = {
+		//backgroundColor: 'rgba(0,0,0,1)',
+		//backgroundColor: 'img/bg.png',
+
 		title: {
                 text: '',
                 x: 'center',
@@ -412,7 +481,7 @@ for(var t=2;t<periods+7;t++)
 			splitArea: {
 				show: true,
 			},
-			min:0,
+			min:minValue,
 		}],
 		series: [{
 				name: 'P2P年化',
@@ -492,7 +561,8 @@ for(var t=2;t<periods+7;t++)
 	// 使用刚指定的配置项和数据显示图表。
 	myChart0.setOption(option0);
 	myChart.setOption(option);
-
+document.write("<div style='background-color:#3e3e3e;width:100%;height:20%'>");
+document.write("<br/>");
 document.write("<div class='weui-btn-area'><a class='weui-btn weui-btn_primary' href='http://weixin.fortunefed.com/project/pay.php' target='_blank'>查看更多方案</a></div>");
-
+document.write("</div>");
 }

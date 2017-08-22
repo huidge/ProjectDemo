@@ -8,7 +8,8 @@
 	<meta name="keywords" content=""/>
 	<title>热门保险投资产品——101</title>
 	<!--引入所需样式表-->
-	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/weui.min.css">
 	<!--引入pageSlider所需样式表-->
 	<link rel="stylesheet" href="css/pageSlider.css">
 	<!--引入zepto.js-->
@@ -18,15 +19,17 @@
 	</head>
 <body>
 	<!--DOM结构-->
-	<div class="section sec1" ><img id="bg"  src="./img/page1.jpg"/></div>
-	<div class="section sec2" ><img id="bg" src="./img/page2.jpg"/></div>
-	<div class="section sec3" ><img id="bg"   src="./img/page3.jpg"/></div>
-	<div class="section sec4" ><iframe id="bg" src="./test.html"></iframe></div>
-	<!--
-	<div class="section sec4" ><iframe id="bg"  style="height: 130%" src="./form.php"></iframe></div>
-	-->
+	<div>
+	<div class="section sec1" ><img id="bg"  src="./img/page1.jpg"/>
+	<div class="arrow"><img src="./img/arrow.png"/>
+	</div>
+	</div>
+	<div class="section sec2" ><img id="bg" src="./img/page2.jpg"/>
 	<div class="arrow"><img src="./img/arrow.png"/></div>
-
+	</div>
+	</div>
+	<div class="section sec3" ><iframe src="./page3.html" style="height:100%;width:100%"></iframe>
+	</div>
 	<script>
 		//$(function(){
 			var pageSlider = PageSlider.case(1);
