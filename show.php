@@ -1,5 +1,5 @@
 <html>  
-<title>多方案展示</title>
+<title>财联邦</title>
 <head>  
 <?php  
 header("Content-Type:text/html;charset=utf-8");  
@@ -44,7 +44,7 @@ echo "surrenderValue_principal_sixth[$key] ='$value';\n";
 ?>
 var categories = new Array();
 // 指定图表的配置项和数据
-	for(var j = 0; j <= 324; j++) {
+	for(var j = 0; j <= 155; j++) {
 		categories[j] = '第' + j + '期';
 	}
 	var legends = new Array('默认退保价值/本金', '方案调整后退保价值/本金');
@@ -65,13 +65,25 @@ var categories = new Array();
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 40,
+            fontWeight: 'light',
+        },
 		},
 		legend: {
-			data: legends
+			data: legends,
+			textStyle: {  
+               	fontSize:'30'//legend字体大小
+                        }
 		},
 		toolbox: {
 			show: true,
+			itemSize:30,
 			feature: {
 				mark: true,
 				dataView: {
@@ -88,13 +100,29 @@ var categories = new Array();
 			type: 'category',
 			boundaryGap: true,
 			data: categories,
+            axisLabel: { 
+            	show:true,
+            	 textStyle: {
+                 color: '#fff',
+                 fontSize:'30'
+                  },
+            //X轴刻度配置
+                interval:30,//0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数       
+            },
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true,
 			},
-			max:3,
+			max:2,
+			axisLabel: {        
+               show: true,
+               textStyle: {
+               color: '#fff',
+               fontSize:'30'
+                }
+            },
 		}],
 		series: [{
 				
@@ -118,10 +146,21 @@ var option2 = {
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 40,
+            fontWeight: 'light'
+        },
 		},
 		legend: {
-			data: legends
+			data: legends,
+			textStyle: {  
+               	fontSize:'30'//legend字体大小
+                        }
 		},
 		toolbox: {
 			show: true,
@@ -141,13 +180,29 @@ var option2 = {
 			type: 'category',
 			boundaryGap: true,
 			data: categories,
+			axisLabel: { 
+            	show:true,
+            	 textStyle: {
+                 color: '#fff',
+                 fontSize:'30'
+                  },
+            //X轴刻度配置
+                interval:30,//0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数       
+            },
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true,
 			},
-			max:3,
+			max:2,
+			axisLabel: {        
+               show: true,
+               textStyle: {
+               color: '#fff',
+               fontSize:'30'
+                }
+            },
 		}],
 		series: [{
 				
@@ -171,10 +226,21 @@ var option3 = {
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 40,
+            fontWeight: 'light'
+        },
 		},
 		legend: {
-			data: legends
+			data: legends,
+			textStyle: {  
+               	fontSize:'30'//legend字体大小
+                        }
 		},
 		toolbox: {
 			show: true,
@@ -194,13 +260,29 @@ var option3 = {
 			type: 'category',
 			boundaryGap: true,
 			data: categories,
+			axisLabel: { 
+            	show:true,
+            	 textStyle: {
+                 color: '#fff',
+                 fontSize:'30'
+                  },
+            //X轴刻度配置
+                interval:30,//0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数       
+            },
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true,
 			},
-			max:3,
+			max:2,
+			axisLabel: {        
+               show: true,
+               textStyle: {
+               color: '#fff',
+               fontSize:'30'
+                }
+            },
 		}],
 		series: [{
 				
@@ -224,10 +306,21 @@ var option3 = {
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 40,
+            fontWeight: 'light'
+        },
 		},
 		legend: {
-			data: legends
+			data: legends,
+			textStyle: {  
+               	fontSize:'30'//legend字体大小
+                        }
 		},
 		toolbox: {
 			show: true,
@@ -247,13 +340,29 @@ var option3 = {
 			type: 'category',
 			boundaryGap: true,
 			data: categories,
+			axisLabel: { 
+            	show:true,
+            	 textStyle: {
+                 color: '#fff',
+                 fontSize:'30'
+                  },
+            //X轴刻度配置
+                interval:30,//0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数       
+            },
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true,
 			},
-			max:3,
+			max:2,
+			axisLabel: {        
+               show: true,
+               textStyle: {
+               color: '#fff',
+               fontSize:'30'
+                }
+            },
 		}],
 		series: [{
 				
@@ -277,10 +386,21 @@ var option5 = {
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 40,
+            fontWeight: 'light'
+        },
 		},
 		legend: {
-			data: legends
+			data: legends,
+			textStyle: {  
+               	fontSize:'30'//legend字体大小
+                        }
 		},
 		toolbox: {
 			show: true,
@@ -300,13 +420,29 @@ var option5 = {
 			type: 'category',
 			boundaryGap: true,
 			data: categories,
+			axisLabel: { 
+            	show:true,
+            	 textStyle: {
+                 color: '#fff',
+                 fontSize:'30'
+                  },
+            //X轴刻度配置
+                interval:30,//0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数       
+            },
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true,
 			},
-			max:3,
+			max:2,
+			axisLabel: {        
+               show: true,
+               textStyle: {
+               color: '#fff',
+               fontSize:'30'
+                }
+            },
 		}],
 		series: [{
 				
@@ -330,10 +466,21 @@ var option5 = {
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 40,
+            fontWeight: 'light'
+        },
 		},
 		legend: {
-			data: legends
+			data: legends,
+			textStyle: {  
+               	fontSize:'30'//legend字体大小
+                        }
 		},
 		toolbox: {
 			show: true,
@@ -353,13 +500,29 @@ var option5 = {
 			type: 'category',
 			boundaryGap: true,
 			data: categories,
+			axisLabel: { 
+            	show:true,
+            	 textStyle: {
+                 color: '#fff',
+                 fontSize:'30'
+                  },
+            //X轴刻度配置
+                interval:30,//0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数       
+            },
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true,
 			},
-			max:3,
+			max:2,
+			axisLabel: {        
+               show: true,
+               textStyle: {
+               color: '#fff',
+               fontSize:'30'
+                }
+            },
 		}],
 		series: [{
 				

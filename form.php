@@ -1,9 +1,39 @@
 
 <?php
-    //require_once "WxPay.JsApiPay.php";
-    //$tools = new JsApiPay();
-    //$openId = $tools->GetOpenid();//获取openid
+ 	require_once "WxPay.JsApiPay.php";
+    $tools = new JsApiPay();
+    $openId = $tools->GetOpenid();//获取openid
     //echo $openId;
+    
+    //根据openid获取flag,判断是否完成支付
+
+	include('./connect.php');//链接数据库
+	//根据openid查询flag,flag=1表示已支付
+	$sql1="select flag from userinfo where openid = '$openId'";
+	$result=mysqli_query($link,$sql1);//执行sql1
+	while($row = mysqli_fetch_array($result)) {
+	$flag = $row['flag'];
+	}
+	if($flag == 1)
+	{
+		$sql2="select * from userinfo where openid='$openId'";
+    	mysqli_query($link,'set names utf8');
+    	$result=mysqli_query($link,$sql2);//执行sql2
+		while($row = mysqli_fetch_array($result)) {
+		$productName = $row[1];
+		$firstDate = $row[2];
+		$pattern = $row[3];
+		$money = $row[4];
+		$plan_periods = $row[5];
+		$periods = $row[6];
+		$accountvalue = $row[7];
+		$areacode = $row[8];
+		$phoneNumber = $row[9];
+		}
+		
+		}
+	mysqli_close($link);//关闭数据库
+
 ?>
 
 <!DOCTYPE html>
@@ -181,7 +211,7 @@ $(document).ready(function(){
 		</script>
 	</head>
 
-	<body>
+	<body style="background: black">
 	<img id ="bg" src="./img/bg.png" style="height: 140%">
 		<form action="" method="post"  id="user_info">
 		<?php echo "<input type='hidden' value='$openId' id='openId'>"; ?>
@@ -190,7 +220,7 @@ $(document).ready(function(){
 					<label for="" class="weui-label">产品名称</label>
 				</div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="text" value="安盛101计划" placeholder="" id="productName" />
+					<input class="weui-input" type="text" value='<?php echo $productName; ?>' placeholder="" id="productName" />
 					
 				</div>
 			</div>
@@ -199,7 +229,7 @@ $(document).ready(function(){
 				<div class="weui-cell__hd">
 					<label for="" class="weui-label">首次缴费日期</label></div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="date" value="2017-08-17" id="firstDate" />
+					<input class="weui-input" type="date" value='<?php echo $firstDate;?>' id="firstDate" />
 				</div>
 			</div>
 				<div class="weui-cell weui-cell_select weui-cell_select-before">
@@ -214,7 +244,7 @@ $(document).ready(function(){
 					</div>
 					
 					<div class="weui-cell__bd">
-						<input class="weui-input" type="number" value="1083" placeholder="请输入每期供款金额" id="money" />
+						<input class="weui-input" type="number" value='<?php echo $money;?>' placeholder="请输入每期供款金额" id="money" />
 					</div>
 					</div>
 				</div>
@@ -223,21 +253,21 @@ $(document).ready(function(){
 			<div class="weui-cell">
 				<div class="weui-cell__hd"><label class="weui-label">计划供款期数</label></div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="number" value="120" pattern="^[1-9]d*$" placeholder="请输入总缴费期数" id="plan_periods" />
+					<input class="weui-input" type="number" value='<?php echo $plan_periods;?>' pattern="^[1-9]d*$" placeholder="请输入总缴费期数" id="plan_periods" />
 				</div>
 			</div>
 
 			<div class="weui-cell">
 				<div class="weui-cell__hd"><label class="weui-label">已缴费期数</label></div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="number" value="18" pattern="^[1-9]d*$" placeholder="请输入已缴费期数" id="periods" />
+					<input class="weui-input" type="number" value='<?php echo $periods;?>' pattern="^[1-9]d*$" placeholder="请输入已缴费期数" id="periods" />
 				</div>
 			</div>
 
 			<div class="weui-cell">
 				<div class="weui-cell__hd"><label class="weui-label">账户价值/元</label></div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="number" value="29000" pattern="^[0-9]+(.[0-9]{2})?$" placeholder="请输入账户当前价值" id="accountvalue" />
+					<input class="weui-input" type="number" value='<?php echo $accountvalue;?>' pattern="^[0-9]+(.[0-9]{2})?$" placeholder="请输入账户当前价值" id="accountvalue" />
 				</div>
 			</div>
 			</div>
@@ -259,13 +289,13 @@ $(document).ready(function(){
             </select>
         </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="tel" id="phoneNumber" name="phoneNumber" value="18437952970"placeholder="请输入手机号"> 
+            <input class="weui-input" type="tel" id="phoneNumber" name="phoneNumber" value='<?php echo $phoneNumber;?>'placeholder="请输入手机号"> 
         </div>
     	</div>
 		</div>
 			<div class="weui-cell">
 			<div class="weui-cell__bd">
-            <input class="weui-input" type="number" placeholder="请输入验证码" id="captcha" value="27637">
+            <input class="weui-input" type="number" placeholder="请输入验证码" id="captcha" value="">
         </div>
 			<div class="weui-cell__ft">
             <input type="button" class="weui-btn weui-btn_primary" value="免费获取验证码" id="btn"  onclick="settime(this)" /> 

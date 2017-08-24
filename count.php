@@ -1,11 +1,7 @@
 <?php	
 	header('Content-Type: text/html; charset=utf-8');
 	error_reporting( E_ALL&~E_NOTICE );
-	//向数据库插入表单传来的值的sql
-	//include('get_openid.php');//获取$openid
-	//$openid="l8Lp5t6n59DeX3U0C7Krid3qEx-Q";
-	//$openid="o7Lp5t6n59DeX3U0C7Kric9qEx-Q";
-	//$openid="b6Lp5t6n59DeX3U0C7Kric9qEx-Q";
+
 	require_once "WxPay.JsApiPay.php";
 	$tools = new JsApiPay();
 	$openId = $tools->GetOpenid();//获取openid
@@ -20,14 +16,15 @@
 	$periods = $row[6];
 	$accountvalue = $row[7];
 	$percent = 0.07;
-}
+	}
+
 /*
 	//$productName = "安盛101计划";
 	//$f$irstDate = "2010-1-1";
 	$pattern = "月供";
 	$money = 1083;
 	$plan_periods = 120;
-	$periods = 18;
+	$periods = 46;
 	$accountvalue = 29000;
 	$percent = 0.07;
 */
@@ -106,7 +103,7 @@
 	/*初始的现金价值/本金*/
 	$cashValue_principal[$i] = $cashValue[$i]/$principal[$i];
 	/*初始的退保价值/本金*/
-	$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
+	//$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
 
 	/*初始化结束*/
 
@@ -198,10 +195,10 @@ echo("<p style='color:white'></p><br />");
 			if($flag==0 && $surrenderValue_principal_first[$i] >= $default_surrenderValue_principal[$i] )
 			{
 				echo("<div style='background-color:#3e3e3e;width:100%;'>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您减少投资现金，增加现金流；假</p>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp设您减少投资金额50%，按照一个合理</p>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp的规划回报率$percent%,您的账户将在第$i 期</p>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp超过未减额时按原本回报率的账户状态。</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您减少投资现金，增加现金流；假</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp设您减少投资金额50%，按照一个合理</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp的规划回报率$percent%,您的账户将在第$i 期</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp超过未减额时按原本回报率的账户状态。</p>");
 				echo("</div><br/>");
 				echo("</div>");
 				$flag=1;
@@ -237,9 +234,9 @@ echo("<p style='color:white'></p><br />");
 			if($flag == 0 && $surrenderValue_principal_second[$i]>=1.2)
 			{
 				echo("<div style='background-color:#3e3e3e;width:100%;'>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您继续持有账户，按照一个合理的规</p>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp划回报率$percent%，您的账户将在第$i 期盈余</p>");
-				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp超过20%。</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果您继续持有账户，按照一个合理的</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp规划回报率$percent%，您的账户将在第$i 期</p>");
+				echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp盈余超过20%。</p>");
 				echo("</div><br/>");
 				echo("</div>");
 				$flag=1;
@@ -302,10 +299,10 @@ echo("<p style='color:white'></p><br />");
 		//echo("拿到退保价值"+$surrenderValue[$periods]+"元</br>");
 		$loss=(1-$default_surrenderValue_principal[$periods])*100;
 		echo("<div style='background-color:#3e3e3e;width:100%;'>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您没有继续持有的意愿或者有现金</p>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp流的需求，其中一个方案建议您选择退</p>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp保。假设您现在退保，您可取回$surrenderValue[$periods]</p>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp元</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您没有继续持有的意愿或者有现</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp金流的需求，其中一个方案建议您选</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp择退保。假设您现在退保，您可取回</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp$surrenderValue[$periods]元。</p>");
 		echo("</div><br/>");
 		echo("</div>");
 		$surrenderValue_principal_forth[$periods] = $default_surrenderValue_principal[$periods];
@@ -330,10 +327,11 @@ echo("<p style='color:white'></p><br />");
 		$loss = (1-$default_surrenderValue_principal[$periods])*100;
 		$value = round($surrenderValue[$periods]*1.2,2);
 		echo("<div style='background-color:#3e3e3e;width:100%;'>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您没有意愿再持有账户，其中一个方</p>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案建议您转让保单。假设您按正常流程停</p>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp止保单，您的剩余价值是$surrenderValue[$periods]元，但</p>");
-		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp按照转让价格，您可取回$value 元。</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设您没有意愿再持有账户，其中一个</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp方案建议您转让保单。假设您按正常流</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp程停止保单，您的剩余价值是$surrenderValue[$periods]</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp元，但按照转让价格，您可取回</p>");
+		echo("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp$value 元。</p>");
 		echo("</div><br/>");
 		echo("</div>");
 

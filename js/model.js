@@ -154,8 +154,7 @@ document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp�
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp总供款金额<strong style='color:#dfc781'>"+money*periods+"</strong>元</p>");
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp目前账户价值<strong style='color:#dfc781'>"+accountvalue+"</strong>元</p>");
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp账户回报率约为<strong style='color:#dfc781'>"+((accountvalue-money*periods)*100/(money*periods)).toFixed(2)+"%</strong></p>");
-document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设退保,可取回价值</p>");
-document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong style='color:#dfc781'>"+surrenderValue[0].toFixed(2)+"</strong>元</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设退保，可取回价值<strong style='color:#dfc781'>"+surrenderValue[0].toFixed(2)+"</strong>元</p>");
 document.write("<br><br></div>");
 //初始图展示
 	document.write("<link rel='stylesheet' type='text/css' href='./css/weui.min.css'> ");
@@ -166,7 +165,7 @@ document.write("<br><br></div>");
 	document.write("<div id='main0'  style='background:url(img/2.jpg);width:100%;height:70%;'></div>");
 	document.write("<div style='background-color:#3e3e3e'>");
 	document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp根据上图对比，可以看出：</p>");
-	document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp余额宝收益较低，P2P风险较高,</p>");
+	document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp余额宝收益较低，P2P风险较高，</p>");
 	document.write("<strong style='color:#dfc781'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp综合对比而言，</strong><br />");
 	document.write("<strong style='color:#dfc781'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp专业资管团队是您投资稳健增长的</strong><br/>");
 	document.write("<strong style='color:#dfc781'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp最佳选择！</strong><br /><br />");
@@ -404,16 +403,17 @@ document.write("<br><br></div>");
 	//value[0] = periods*money;
 	//p_value[0] = periods*money;
 
-	a_value[1] = periods*money;
-	value[1] = periods*money;
-	p_value[1] = periods*money;
+	a_value[1] = periods*money/1000;
+	value[1] = periods*money/1000;
+	p_value[1] = periods*money/1000;
+
 	if(periods*money > accountvalue)
 	{
-		var minValue=accountvalue-money;
+		var minValue=(accountvalue-money)/1000;
 	}
 	else
 	{
-		var minValue=periods*money-money;
+		var minValue=(periods*money-money)/1000;
 	}
 
 	var categories0 = new Array();
@@ -438,11 +438,11 @@ for(var t=2;t<periods+7;t++)
 
 	}
 
-	var data=[[categories0[periods],accountvalue]];
+	var data=[[categories0[periods],accountvalue/1000]];
 
 	//var data=[categories0[periods],20000];
 
-	var legends0 = new Array('P2P年化','专业资管团队年化','余额宝年化','当前账户价值');
+	var legends0 = new Array('当前账户价值','P2P账户价值','专业资管团队账户价值','余额宝账户价值');
 	var legends = new Array('默认退保价值/本金', '方案调整后退保价值/本金');
 	
 	var myChart0= echarts.init(document.getElementById('main0'),'shine');
@@ -452,16 +452,31 @@ for(var t=2;t<periods+7;t++)
 		//backgroundColor: 'img/bg.png',
 
 		title: {
-                text: '',
-                x: 'center',
-        		y: 30
+			show:true,
+                text: '单位:/千',
+                x: 'left',
+        		y: 20,
+        		textStyle:{
+        			color:'#fff',
+        			fontWeight:'lighter'
+        		}
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 15,
+            fontWeight: 'light',
+        },
 		},
 		legend: {
-			data: legends0
+			data: legends0,
+			right:'10',
+			orient:'vertical'
 		},
 		toolbox: {
 			show: true,
@@ -487,29 +502,31 @@ for(var t=2;t<periods+7;t++)
 			splitArea: {
 				show: true,
 			},
-			min:minValue,
+			min:minValue.toFixed(1),
+			max:p_value[periods+7]
 		}],
 		series: [{
-				name: 'P2P年化',
+        		name: '当前账户价值',
+      			type: 'scatter',
+            	data: data,
+            },
+            {
+				name: 'P2P账户价值',
 				type: 'line',
 				data: p_value,
 				
 			},
 			{
-				name: '专业资管团队年化',
+				name: '专业资管团队账户价值',
 				type: 'line',
 				data: value,
 			},
 			{
-				name: '余额宝年化',
+				name: '余额宝账户价值',
 				type: 'line',
 				data: a_value,
 			},
-			{
-        		name: '当前账户价值',
-      			type: 'scatter',
-            	data: data,
-            },
+			
 		]
 	}
 	var option = {
@@ -520,7 +537,15 @@ for(var t=2;t<periods+7;t++)
             },
 		tooltip: {
 			trigger: 'axis',
-			position:[40,300]
+			confine:true,
+			//position:['50%','70%']
+			 textStyle : {
+            color: 'white',
+            decoration: 'none',
+            fontFamily: 'Verdana, sans-serif',
+            fontSize: 15,
+            fontWeight: 'light',
+        },
 		},
 		legend: {
 			data: legends
