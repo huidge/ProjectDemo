@@ -32,8 +32,16 @@
 	$percent = 0.07;
 */
 	$i = 0;
-	$iCP[$i] = $accountvalue;
-	$A_C[$i] = 0;
+	if($periods <= 18)
+	{
+		$iCP[$i] = $accountvalue;
+		$A_C[$i] = 0;
+	}
+	else
+	{
+		$iCP[$i] = $money*18;
+		$A_C[$i] = $accountvalue-$iCP[$i];
+	}
 	/*初始化现金价值*/
 	$cashValue[$i] = $iCP[$i] + $A_C[$i];
 	/*退保成本（费率）*/
@@ -66,7 +74,7 @@
 	/*退保费用*/
 	$surrenderCost[$i] = $iCP[$i] * $surrenderrate[$i];
 	/*退保后价值*/
-	$surrenderValue[$i]= $iCP[$i] * (1 - $surrenderrate[$i]) + $A_C[$i];
+	$surrenderValue[$i]= round(($iCP[$i] * (1 - $surrenderrate[$i]) + $A_C[$i]),2);
 	$principal[$i] = $money * $periods;
 	/*初始化周期*/
 	$T = 0;
@@ -111,7 +119,7 @@
 	$iCP[$i]= $iCP[$i-1] * $rate * (1 - $accountvalueFee - $policyFee3) + $policyFee2;
 	$cashValue[$i] = $iCP[$i] + $A_C[$i];
 	$surrenderCost[$i] = $iCP[$i]* $surrenderrate[$i];
-	$surrenderValue[$i] = $cashValue[$i] - $surrenderCost[$i];
+	$surrenderValue[$i]= round(($iCP[$i] * (1 - $surrenderrate[$i]) + $A_C[$i]),2);
 	$cashValue_principal[$i] = ($iCP[$i] + $A_C[$i]) / $principal[$i];
 	$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
 
@@ -133,7 +141,7 @@
 
 		$cashValue[$i] = $iCP[$i]+ $A_C[$i];
 		$surrenderCost[$i] = $iCP[$i] * $surrenderrate[$i];
-		$surrenderValue[$i] = round(($cashValue[$i] - $surrenderCost[$i]),2);
+		$surrenderValue[$i]= round(($iCP[$i] * (1 - $surrenderrate[$i]) + $A_C[$i]),2);
 		$cashValue_principal[$i] = ($iCP[$i] + $A_C[$i]) / $principal[$i];
 		$default_surrenderValue_principal[$i] = round((($iCP[$i] + $A_C[$i] - $iCP[$i] * $surrenderrate[$i]) / $principal[$i]),2);
 

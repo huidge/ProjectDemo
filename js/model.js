@@ -21,8 +21,16 @@
 	var i = 0;
 	var ICP = new Array();
 	var A_C = new Array();
-	ICP[i] = accountvalue;
-	A_C[i] = 0;
+	if(periods <= 18)
+	{
+		ICP[i] = accountvalue;
+		A_C[i] = 0;
+	}
+	else
+	{
+		ICP[i] = money*18;
+		A_C[i] = accountvalue-ICP[i];
+	}
 	/*初始化现金价值*/
 	var cashValue = new Array();
 	cashValue[i] = ICP[i] + A_C[i];
@@ -109,12 +117,12 @@
 	i++;
 	principal[i] = principal[i-1] + money;
 	//A_C = money;
-	A_C[i] = money;
+	A_C[i] =A_C[i-1] * rate * (1 - policyFee3) - principal[i-1] * policyFee1 + money;
 	//console.log(A_C);
 	ICP[i]= ICP * rate * (1 - accountvalueFee - policyFee3) + policyFee2;
 	cashValue[i] = ICP[i] + A_C[i];
 	surrenderCost[i] = ICP[i]* surrenderRate[i];
-	surrenderValue[i] = cashValue[i] - surrenderCost[i];
+	surrenderValue[i] = ICP[i] * (1 - surrenderRate[i]) + A_C[i];
 	cashValue_Principal[i] = (ICP[i] + A_C[i]) / principal[i];
 	default_surrenderValue_Principal[i] = ((ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i]).toFixed(2);
 	/*第一期缴费结束*/
@@ -135,10 +143,10 @@
 
 		cashValue[i] = ICP[i]+ A_C[i];
 		surrenderCost[i] = ICP[i] * surrenderRate[i];
-		surrenderValue[i] = cashValue[i] - surrenderCost[i];
+		surrenderValue[i] = ICP[i] * (1 - surrenderRate[i]) + A_C[i];
 		cashValue_Principal[i] = (ICP[i] + A_C[i]) / principal[i];
 		default_surrenderValue_Principal[i] = ((ICP[i] + A_C[i] - ICP[i] * surrenderRate[i]) / principal[i]).toFixed(2);
-		
+
 	}
 document.write("<div style='background-color:#3e3e3e;width:100%;'>");
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp根据您的账户数据，分析结果如下：</p>");
@@ -146,10 +154,8 @@ document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp�
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp总供款金额<strong style='color:#dfc781'>"+money*periods+"</strong>元</p>");
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp目前账户价值<strong style='color:#dfc781'>"+accountvalue+"</strong>元</p>");
 document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp账户回报率约为<strong style='color:#dfc781'>"+((accountvalue-money*periods)*100/(money*periods)).toFixed(2)+"%</strong></p>");
-document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp测试1：假设退保可取回价值</p>");
-document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong style='color:#dfc781'>"+(accountvalue*(1-surrenderRate[periods])).toFixed(2)+"</strong>元</p>");
-document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp测试2：假设退保可取回价值</p>");
-document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong style='color:#dfc781'>"+surrenderValue[periods].toFixed(2)+"</strong>元</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp假设退保,可取回价值</p>");
+document.write("<p style='color:white'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong style='color:#dfc781'>"+surrenderValue[0].toFixed(2)+"</strong>元</p>");
 document.write("<br><br></div>");
 //初始图展示
 	document.write("<link rel='stylesheet' type='text/css' href='./css/weui.min.css'> ");

@@ -1,9 +1,9 @@
 
 <?php
-    require_once "WxPay.JsApiPay.php";
-    $tools = new JsApiPay();
-    $openId = $tools->GetOpenid();//获取openid
-    echo $openId;
+    //require_once "WxPay.JsApiPay.php";
+    //$tools = new JsApiPay();
+    //$openId = $tools->GetOpenid();//获取openid
+    //echo $openId;
 ?>
 
 <!DOCTYPE html>

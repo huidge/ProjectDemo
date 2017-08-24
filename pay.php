@@ -90,7 +90,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 				if(res.err_msg == "get_brand_wcpay_request:cancel")
 				{
 					alert("取消支付！");
-					//window.location.href="./insertflag.php";
+					window.location.href="./insertflag.php";
 				}
 				if(res.err_msg == "get_brand_wcpay_request:fail")
 				{
@@ -180,18 +180,12 @@ a[class*="btn"]{display:block;height:42px;line-height:42px;color:#FFFFFF;text-al
 .charge .showaddr strong{font-weight:normal;color:#9900FF;font-size:26px;font-family:Helvetica;}
 .charge .copy-right{margin:5px 0; font-size:12px;color:#848484;text-align:center;}
 /* 充值页 ]]*/
-.font-color{color:white;}
-.font-size{font-size:14px;font-family: "Microsoft YaHei", "微软雅黑";}
 </style>
-<link rel="stylesheet" type="text/css" href="./css/weui.min.css">
-<link rel="stylesheet" type="text/css" href="./css/style.css">
+
 </head>
 <body>
-<img id ="bg" src="img/bg.png" style="height:100%;width:100%" />
 <article class="charge">
-<!--
 		<h1>财联邦</h1>
--->
 		<section class="content">
 				
 				<!--		
@@ -199,25 +193,27 @@ a[class*="btn"]{display:block;height:42px;line-height:42px;color:#FFFFFF;text-al
 					<li><img src="./微信支付demo/weixin.jpg" style="width:150px;height:150px"></li>
 				</ul>
 				-->
+				<ul class="select cf">
+					<p>
+					想要查看本方案更多详情内容？
+					</p>
+					<p>
+					立即支付查看
+					</p>
+				</ul>
 				
-				<div style="margin:10% 28%;">
-				<p style="font-family:'宋体';font-size:30px;color: white">交易金额</p>
-				<strong style="font-family:'宋体';font-size:25px;color: white">￥0.01元</strong>
-				</div>
+				<div class="price">微信价：<strong>￥0.01元</strong></div>
 				<!--
 				<div class="operation"><a class="btn-green" id="getBrandWCPayRequest" href="https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx20170731170018d8efa3c3c00763842177&amp;package=595981920">立即购买</a></div>
 				-->
-				<div class="weui-btn-area"><a class="weui-btn weui-btn_primary" id="getBrandWCPayRequest" onclick="callpay()" >立即支付</a></div>
-				<br />
-				<div>
-				<ul class="select cf font-color font-size">
-				<p 费用所含项目：</p>
-				<p>1、全系列解决方案。我们共有6套解决方案，付费客户将收到全部6套方案。</p>
-				<p>2、永久性投顾服务。付费客户将定期收到专业资管团队整理的投资市场资讯和基于客户风险偏好给予的投资建议。</p>
-				<p>3、专业化行政服务。付费客户可以享受与账户投资相关的资料填写、文档递交、信件派送、账户查询等专业行政服务。</p>
-				<p>4、个性化咨询服务。付费客户有权要求我们可以为您安排专业投资顾问进行一对一的咨询服务，为您的投资保驾护航。</p>
-				</ul>
-				</div>
+				<div class="operation"><a class="btn-green" id="getBrandWCPayRequest" onclick="callpay()" >立即支付</a></div>
+				<!--
+				<p class="copy-right">demo</p>
+				-->
+				<br><p>注意事项：</p><br>
+				<p class="copy-right">1、永久有效的账户投顾服务。我们强大的资管团队会定期为您推送投资市场资讯，同时根据您的风险偏好给予投资建议。</p>
+				<p class="copy-right">2、专业高效的行政服务。转单、调仓等操作需要的资料填写、文档递交、信件派送，账户价值、账户收益率等状态的查询，都可以交给我们的行政团队，为您减少来回奔波的烦恼。</p>
+				<p class="copy-right">3、一对一的咨询服务。我们可以为您安排专业的投资顾问进行一对一的咨询服务，为您的投资保驾护航。该服务的市场价是3000元/年，但我们的会员可以享受3次免费的服务，之后续费仅需1000元/年。</p>
 		</section>
 	</article>
     <br/>

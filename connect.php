@@ -1,20 +1,20 @@
 <?php
-    $server="";//ä¸»æœº
-    $db_username="";//ä½ çš„æ•°æ®åº“ç”¨æˆ·å
-    $db_password="";//ä½ çš„æ•°æ®åº“å¯†ç 
-    $db_database="";//é»˜è®¤è¿žæŽ¥æ•°æ®åº“
+    $server="112.74.62.73";//Ö÷»ú
+    $db_username="root";//ÄãµÄÊý¾Ý¿âÓÃ»§Ãû
+    $db_password="root";//ÄãµÄÊý¾Ý¿âÃÜÂë
+    $db_database="test";//Ä¬ÈÏÁ¬½ÓÊý¾Ý¿â
 /*
-  	$con = mysql_connect($server,$db_username,$db_password);//é“¾æŽ¥æ•°æ®åº“
+  	$con = mysql_connect($server,$db_username,$db_password);//Á´½ÓÊý¾Ý¿â
     if(!$con){
-        die("can't connect".mysql_error());//å¦‚æžœé“¾æŽ¥å¤±è´¥è¾“å‡ºé”™è¯¯
+        die("can't connect".mysql_error());//Èç¹ûÁ´½ÓÊ§°ÜÊä³ö´íÎó
     }  
-    mysql_select_db('test',$con);//é€‰æ‹©æ•°æ®åº“ï¼ˆæˆ‘çš„æ˜¯testï¼‰
+    mysql_select_db('test',$con);//Ñ¡ÔñÊý¾Ý¿â£¨ÎÒµÄÊÇtest£©
 */
     $link = mysqli_connect( 
- $server, /* The host to connect to è¿žæŽ¥MySQLåœ°å€ */  
- $db_username,   /* The user to connect as è¿žæŽ¥MySQLç”¨æˆ·å */  
- $db_password, /* The password to use è¿žæŽ¥MySQLå¯†ç  */  
- $db_database);  /* The default database to query è¿žæŽ¥æ•°æ®åº“åç§°*/  
+ $server, /* The host to connect to Á¬½ÓMySQLµØÖ· */  
+ $db_username,   /* The user to connect as Á¬½ÓMySQLÓÃ»§Ãû */  
+ $db_password, /* The password to use Á¬½ÓMySQLÃÜÂë */  
+ $db_database);  /* The default database to query Á¬½ÓÊý¾Ý¿âÃû³Æ*/  
  
 if (!$link) { 
   printf("Can't connect to MySQL Server. Errorcode: %s ", mysqli_connect_error()); 

@@ -1,5 +1,5 @@
 <html>  
-<title>财联邦</title>
+<title>多方案展示</title>
 <head>  
 <?php  
 header("Content-Type:text/html;charset=utf-8");  
@@ -44,7 +44,7 @@ echo "surrenderValue_principal_sixth[$key] ='$value';\n";
 ?>
 var categories = new Array();
 // 指定图表的配置项和数据
-	for(var j = 0; j <= 155; j++) {
+	for(var j = 0; j <= 324; j++) {
 		categories[j] = '第' + j + '期';
 	}
 	var legends = new Array('默认退保价值/本金', '方案调整后退保价值/本金');
@@ -94,7 +94,7 @@ var categories = new Array();
 			splitArea: {
 				show: true,
 			},
-			max:2,
+			max:3,
 		}],
 		series: [{
 				
@@ -147,7 +147,7 @@ var option2 = {
 			splitArea: {
 				show: true,
 			},
-			max:2,
+			max:3,
 		}],
 		series: [{
 				
@@ -200,7 +200,7 @@ var option3 = {
 			splitArea: {
 				show: true,
 			},
-			max:2,
+			max:3,
 		}],
 		series: [{
 				
@@ -253,7 +253,7 @@ var option3 = {
 			splitArea: {
 				show: true,
 			},
-			max:2,
+			max:3,
 		}],
 		series: [{
 				
@@ -306,7 +306,7 @@ var option5 = {
 			splitArea: {
 				show: true,
 			},
-			max:2,
+			max:3,
 		}],
 		series: [{
 				
@@ -359,7 +359,7 @@ var option5 = {
 			splitArea: {
 				show: true,
 			},
-			max:2,
+			max:3,
 		}],
 		series: [{
 				
