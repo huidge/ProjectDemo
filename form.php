@@ -1,7 +1,7 @@
 
 <?php
  	require_once "WxPay.JsApiPay.php";
-    $tools = new JsApiPay();
+   	$tools = new JsApiPay();
     $openId = $tools->GetOpenid();//获取openid
     //echo $openId;
     
@@ -32,8 +32,8 @@
 		}
 		
 		}
+	$productName="安盛101计划";
 	mysqli_close($link);//关闭数据库
-
 ?>
 
 <!DOCTYPE html>
@@ -220,9 +220,15 @@ $(document).ready(function(){
 					<label for="" class="weui-label">产品名称</label>
 				</div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="text" value='<?php echo $productName; ?>' placeholder="" id="productName" />
-					
+					<input class="weui-input" type="text" value='<?php echo $productName; ?>' placeholder="请输入产品名称" id="productName" />
 				</div>
+				<!--
+				<div class="weui-cell__hd">
+						<select class="weui-select" name="productName" id="productName">
+							<option value="安盛101计划">安盛101计划</option>
+						</select>
+				</div>
+				-->
 			</div>
 			</div>
 			<div class="weui-cell">
