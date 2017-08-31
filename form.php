@@ -9,6 +9,7 @@
 
 	include('./connect.php');//链接数据库
 	//根据openid查询flag,flag=1表示已支付
+/*	
 	$sql1="select flag from userinfo where openid = '$openId'";
 	$result=mysqli_query($link,$sql1);//执行sql1
 	while($row = mysqli_fetch_array($result)) {
@@ -16,7 +17,9 @@
 	}
 	if($flag == 1)
 	{
-		$sql2="select * from userinfo where openid='$openId'";
+*/
+	//根据openid判断用户是否填写过信息
+	$sql2="select * from userinfo where openid='$openId'";
     	mysqli_query($link,'set names utf8');
     	$result=mysqli_query($link,$sql2);//执行sql2
 		while($row = mysqli_fetch_array($result)) {
@@ -31,7 +34,7 @@
 		$phoneNumber = $row[9];
 		}
 		
-		}
+//}
 	$productName="安盛101计划";
 	mysqli_close($link);//关闭数据库
 ?>
